@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Button(props){
     return (
         <>
-        <input type="button" onClick={props.send}>{props.value}</input>
+        <button onClick={props.handleClick} value={props.value}>{props.value}</button>
         </>
     )
 }

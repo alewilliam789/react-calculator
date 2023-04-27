@@ -4,22 +4,28 @@ import Button from "./Button";
 
 export default function Interface(props){
 
-    [nums, setNums] = useState([...Array(10).keys()]);
-    [operators, setOperators] = useState(["+", "-","/","*","^"]);
+    function handleClick(event){
+        const {name, value} = event.target
+        console.log(value);
+    }
 
-    numberButtons = nums.map(num => {
-        return <Button value={num}/>
+    const [nums, setNums] = useState([...Array(10).keys()]);
+    const [operators, setOperators] = useState(["+", "-","/","*","^"]);
+
+    const numberButtons = nums.map(num => {
+        return <Button key={num} value={num} handleClick={handleClick}/>
     })
 
-    operatorButtons =operators.map(operator =>{
 
-        return operator === "=" ? <Button value={operator}/> : <Button value={operator} handleClick={handleClick} />
+    const operatorButtons = operators.map(operator =>{
+        return operator === "=" ? <button>{operator}</button> : <Button value={operator} handleClick={handleClick}/>
     })
+
 
     return (
         <div>
-            numberButtons
-            opertatorButtons
+            {numberButtons}
+            {operatorButtons}
         </div>
     )
 }

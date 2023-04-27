@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Button from "./Button";
+import Screen from "./Screen";
 
 export default function Calculator(props){
 
@@ -31,13 +32,18 @@ export default function Calculator(props){
 
     return (
         <>
-        <div className="flex">
-        <div className=" w-36 grid grid-cols-3">
-            {numberButtons}
-        </div>
-        <div className="flex flex-col">
-            {operatorButtons}
-        </div>
+        <div className="flex flex-col items-center">
+            <div>
+                <Screen />
+            </div>
+            <div className="mt-20 gap-10 flex">
+                <div className="w-70 grid grid-cols-3 gap-5">
+                    {numberButtons}
+                </div>
+                <div className="flex flex-col justify-center gap-5">
+                    {operatorButtons}
+                </div>
+            </div>
         </div>
         </>
     )

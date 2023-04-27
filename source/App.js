@@ -1,11 +1,11 @@
 import React from "react";
 import '../source/app.css'
-import Interface from "./components/Interface";
+import Calculator from "./components/Calculator";
 
 export default function App() {
     return (
-        <div className="bg-gray-200">
-            <Interface />
-        </div>
+        <>
+            <Calculator />
+        </>
     )
 }

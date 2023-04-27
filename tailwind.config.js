@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./*.js",
-    "./source/*.js"
+    "./source/**/*.js"
   ],
   theme: {
     extend: {},

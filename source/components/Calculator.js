@@ -7,7 +7,7 @@ export default function Calculator(props){
 
     function handleClick(event){
         let {value} = event.target;
-        setScreenText(screenText +" "+ String(value))
+        setScreenText(prevscreenText => (prevscreenText +" "+ String(value)))
     }
 
     function handleCalc(event){

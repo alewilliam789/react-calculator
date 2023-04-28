@@ -7,7 +7,7 @@ export default function Calculator(props){
 
     function handleClick(event){
         let {value} = event.target;
-        setScreenText(prevscreenText => (prevscreenText +" "+ String(value)))
+        setScreenText(prevscreenText => operators.includes(value) ? (prevscreenText + " "+ String(value)) : prevscreenText + String(value))
     }
 
     function handleCalc(event){
@@ -15,12 +15,16 @@ export default function Calculator(props){
         console.log("Calculated the total")
     }
 
-    const [nums, setNums] = useState([...Array(10).keys()]);
-    const [operators, setOperators] = useState(["+", "-","/","*","^","="]);
+    function handleClear(){
+        setScreenText("")
+    }
+
+    const nums = [...Array(10).keys(), "CLR"];
+    const operators = ["+", "-","/","*","^","="];
     const [screenText, setScreenText] = useState("")
 
     const numberButtons = nums.map(num => {
-        return <Button key={num} value={num} handleClick={handleClick}/>
+        return num =="CLR" ? <Button key={num} value={num} handleClick={handleClear}/> : <Button key={num} value={num} handleClick={handleClick}/>
     })
 
 

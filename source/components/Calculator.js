@@ -7,19 +7,24 @@ export default function Calculator(props){
 
     function handleClick(event){
         let {value} = event.target;
-        setScreenText(prevscreenText => operators.includes(value) ? (prevscreenText + " "+ String(value)) : prevscreenText + String(value))
+        setScreenText(prevScreenText => {
+            return operators.includes(value)? (prevScreenText + " "+ String(value)+ " ") : prevScreenText + String(value)
+            }
+        )
     }
 
-    function handleCalc(event){
-        const {value} = event.target;
-        console.log("Calculated the total")
+    function handleCalc(){
+        setScreenText(prevScreenText => {
+            let calcArray = prevScreenText.split(" ")
+            console.log(calcArray);
+        })
     }
 
     function handleBack(){
         setScreenText( prevScreenText => {
             let previousValue = prevScreenText.slice(-1);
             let length = prevScreenText.length
-            return (operators.includes(previousValue) ? prevScreenText.slice(0,length-2) : prevScreenText.slice(0,length-1))
+            return (previousValue === " " ? prevScreenText.slice(0,length-3) : prevScreenText.slice(0,length-1))
         })
     }
 

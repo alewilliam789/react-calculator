@@ -8,28 +8,46 @@ export default function Calculator(props){
     function handleClick(event){
         let {value} = event.target;
         setScreenText(prevScreenText => {
-            return operators.includes(value)? (prevScreenText + " "+ String(value)+ " ") : prevScreenText + String(value)
+            switch(true) {
+                case (operators.includes(value) && 
+                      operators.includes(prevScreenText.charAt(prevScreenText.length-2)))
+                 : {
+                    return prevScreenText;
+                }
+                case (operators.includes(value)) :{
+                    return prevScreenText + " " + String(value) + " ";
+                }
+                default : {
+                    return prevScreenText +String(value);
+                }
             }
-        )
+        })
     }
+        
+
+    
+
+    function handlePEMDAS(numArray){
+        let operationsArray = [];
+            switch(true){
+                case (numArray.indexOf("(") != -1) : {
+                    let subArray1 = handleParenthesis(numArray);
+                    console.log(subArray1)    
+                }
+                default : {
+                    console.log('Calculated the total!')
+                } 
+            }
+        }
 
     function handleCalc(){
         setScreenText(prevScreenText => {
-            setcalcArray(prevScreenText.trim().split(" "));
-            // while(calcArray.length != 1){
-            //     switch(true){
-            //         case (calcArray.findIndex("(") != -1) : {
-            //             firstP = calcArray.findIndex("(");
-            //             secondP = calcArray.findIndex(")");
-            //             setSubArray(calcArray.slice(firstP,secondP))
-            //         } 
-            //         })
-            //     }
-
-            // }
-            
+            let calcArray = prevScreenText.trim().split(" ");
+            console.log(calcArray);
+            // handlePEMDAS(calcArray);
         })
     }
+            
 
     function handleBack(){
         setScreenText( prevScreenText => {
@@ -45,10 +63,8 @@ export default function Calculator(props){
 
     const nums = [...Array(10).keys()];
     const erasors = ["BCK","CLR"];
-    const operators = ["(",")","+", "-","/","*","^","="];
+    const operators = ["+", "-","/","*","^","="];
     const [screenText, setScreenText] = useState("");
-    const [calcArray, setcalcArray] = useState();
-    const [subArray, setSubArray] = useState();
 
     const numberButtons = nums.map(num => {
        return <Button key={num} value={num} handleClick={handleClick}/>

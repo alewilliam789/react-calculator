@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Button from "./Button";
-import Screen from "./Screen";
+import Button from "../Button"
+import Screen from "../Screen";
 
 export default function Calculator(props){
 
@@ -15,8 +15,19 @@ export default function Calculator(props){
 
     function handleCalc(){
         setScreenText(prevScreenText => {
-            let calcArray = prevScreenText.split(" ")
-            console.log(calcArray);
+            setcalcArray(prevScreenText.trim().split(" "));
+            // while(calcArray.length != 1){
+            //     switch(true){
+            //         case (calcArray.findIndex("(") != -1) : {
+            //             firstP = calcArray.findIndex("(");
+            //             secondP = calcArray.findIndex(")");
+            //             setSubArray(calcArray.slice(firstP,secondP))
+            //         } 
+            //         })
+            //     }
+
+            // }
+            
         })
     }
 
@@ -34,8 +45,10 @@ export default function Calculator(props){
 
     const nums = [...Array(10).keys()];
     const erasors = ["BCK","CLR"];
-    const operators = ["+", "-","/","*","^","="];
-    const [screenText, setScreenText] = useState("")
+    const operators = ["(",")","+", "-","/","*","^","="];
+    const [screenText, setScreenText] = useState("");
+    const [calcArray, setcalcArray] = useState();
+    const [subArray, setSubArray] = useState();
 
     const numberButtons = nums.map(num => {
        return <Button key={num} value={num} handleClick={handleClick}/>

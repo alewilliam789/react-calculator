@@ -55,9 +55,6 @@ export default function Calculator(props){
             operationsTracker.runner = false
             operationsTracker["answer"] = answer;
         }
-        // else if(operator == "("){
-        //     operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),operationsTracker.answer,...operationsArray.slice(secondIndex+1,operationsArray.length)];
-        // }
         else{
             operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),answer,...operationsArray.slice(operatorIndex+2,operationsArray.length)];
         }

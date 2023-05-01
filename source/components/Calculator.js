@@ -171,8 +171,8 @@ export default function Calculator(props){
        return <Button key={num} value={num} handleClick={handleClick}/>
     })
 
-    const erasorButtons = erasors.map(num => {
-        return num =="CLR" ? <Button key={num} value={num} handleClick={handleClear}/> : <Button key={num} value={num} handleClick={handleBack}/>
+    const erasorButtons = erasors.map((button, index) => {
+        return button =="CLR" ? <Button key={index} value={button} handleClick={handleClear}/> : <Button key={button} value={button} handleClick={handleBack}/>
     })
 
     const operatorButtons = operators.map((operator, index) =>{
@@ -192,7 +192,8 @@ export default function Calculator(props){
                     {numberButtons}
                 </div>
                 <div className="flex flex-col justify-center gap-5">
-                    {operatorButtons}
+                <Button key={"."} value={"."} handleClick={handleClick}/>
+                {operatorButtons}
                 </div>
             </div>
         </div>

@@ -24,14 +24,6 @@ export default function Calculator(props){
         })
     }
 
-    function getValues(numArray,operator){
-        let operatorIndex = numArray.indexOf(operator);
-        console.log(operatorIndex)
-        return {
-            firstVal: numArray[operatorIndex-1],
-            secondVal: numArray[operatorIndex+1]
-        }
-     };
 
     let operations = {
         "power" : function(a,b) {return Number(a)**Number(b)},
@@ -40,6 +32,15 @@ export default function Calculator(props){
         "add" : function(a,b) {return Number(a)+Number(b)},
         "subtract" : function(a,b) {return Number(a)-Number(b)}
      }
+
+     function getValues(numArray,operator){
+        let operatorIndex = numArray.indexOf(operator);
+        console.log(operatorIndex)
+        return {
+            firstVal: numArray[operatorIndex-1],
+            secondVal: numArray[operatorIndex+1]
+        }
+     };
 
     function handleOperations(operationsArray,operator,operatorName){
 
@@ -62,7 +63,6 @@ export default function Calculator(props){
 
         return operationsTracker;
     }
-    
 
     function handlePEMDAS(numArray){
         let runner = true;
@@ -138,68 +138,6 @@ export default function Calculator(props){
                         return operationsOutcome.answer;
                     }
                 }
-                // case (numArray.indexOf("*") != -1) : {
-                //     let operatorIndex = numArray.indexOf("*");
-                //     let operation = getValues(numArray,"*")
-                //     let answer = multiply(operation.firstVal,operation.secondVal)
-                //     if(numArray.length == 3) {
-                //         runner = false;
-                //         console.log(answer)
-                //         return answer
-                //     }
-                //     else{
-                //         numArray = [...numArray.slice(0,operatorIndex-1),answer,...numArray.slice(operatorIndex+2,numArray.length)];
-                //         console.log(numArray)
-                //         break
-                //     }
-                // }
-                // case (numArray.indexOf("/") != -1) : {
-                //     let operatorIndex = numArray.indexOf("/");
-                //     let operation = getValues(numArray,"/")
-                //     let answer = divide(operation.firstVal,operation.secondVal)
-                //     if(numArray.length == 3) {
-                //         runner = false;
-                //         console.log(answer)
-                //         return answer
-                //     }
-                //     else{
-                //         numArray = [...numArray.slice(0,operatorIndex-1),answer,...numArray.slice(operatorIndex+2,numArray.length)];
-                //         console.log(numArray)
-                //         break
-                //     }
-                // }
-                // case (numArray.indexOf("+") != -1) : {
-                //     let operatorIndex = numArray.indexOf("+");
-                //     console.log('We are adding')
-                //     let operation = getValues(numArray,"+")
-                //     let answer = add(operation.firstVal,operation.secondVal)
-                //     if(numArray.length == 3) {
-                //         runner = false;
-                //         console.log(answer)
-                //         return answer
-                //     }
-                //     else{
-                //         numArray = [...numArray.slice(0,operatorIndex-1),answer,...numArray.slice(operatorIndex+2,numArray.length)];
-                //         console.log(numArray)
-                //         break
-                //     }
-                // }
-                // case (numArray.indexOf("-") != -1) : {
-                //     let operatorIndex = numArray.indexOf("-");
-                //     console.log('We are subtracting');
-                //     let operation = getValues(numArray,"-")
-                //     let answer = subtract(operation.firstVal,operation.secondVal)
-                //     if(numArray.length == 3) {
-                //         runner = false;
-                //         console.log(answer)
-                //         return answer
-                //     }
-                //     else{
-                //         numArray = [...numArray.slice(0,operatorIndex-1),answer,...numArray.slice(operatorIndex+2,numArray.length)];
-                //         console.log(numArray)
-                //         break
-                //     }
-                // }
             }
         }
     }

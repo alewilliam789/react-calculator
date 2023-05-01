@@ -35,7 +35,6 @@ export default function Calculator(props){
 
      function getValues(numArray,operator){
         let operatorIndex = numArray.indexOf(operator);
-        console.log(operatorIndex)
         return {
             firstVal: numArray[operatorIndex-1],
             secondVal: numArray[operatorIndex+1]
@@ -54,7 +53,6 @@ export default function Calculator(props){
         let answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal)
         if(operationsArray.length == 3) {
             operationsTracker.runner = false
-            console.log(answer)
             operationsTracker["answer"] = answer;
         }
         else{
@@ -67,77 +65,35 @@ export default function Calculator(props){
     function handlePEMDAS(numArray){
         let runner = true;
         while (runner){
+            let operationsOutcome;
             switch(true){
                 case (numArray.indexOf("^") != -1) : {
-                    let operationsOutcome = handleOperations(numArray,"^","power")
-                    console.log(operationsOutcome)
-                    if(!operationsOutcome.answer){
-                        numArray = operationsOutcome.operationsArray;
-                        console.log(numArray)
-                        break
-                    }
-                    else{
-                        runner = operationsOutcome.runner;
-                        console.log(operationsOutcome.answer)
-                        return operationsOutcome.answer;
-                    }
+                    operationsOutcome = handleOperations(numArray,"^","power")
+                    break
                 }
                 case (numArray.indexOf("*") != -1) : {
-                    let operationsOutcome = handleOperations(numArray,"*","multiply")
-                    console.log(operationsOutcome)
-                    if(!operationsOutcome.answer){
-                        numArray = operationsOutcome.operationsArray;
-                        console.log(numArray)
-                        break
-                    }
-                    else{
-                        runner = operationsOutcome.runner;
-                        console.log(operationsOutcome.answer)
-                        return operationsOutcome.answer;
-                    }
+                    operationsOutcome = handleOperations(numArray,"*","multiply")
+                    break
                 }
                 case (numArray.indexOf("/") != -1) : {
-                    let operationsOutcome = handleOperations(numArray,"/","divide")
-                    console.log(operationsOutcome)
-                    if(!operationsOutcome.answer){
-                        numArray = operationsOutcome.operationsArray;
-                        console.log(numArray)
-                        break
-                    }
-                    else{
-                        runner = operationsOutcome.runner;
-                        console.log(operationsOutcome.answer)
-                        return operationsOutcome.answer;
-                    }
+                    operationsOutcome = handleOperations(numArray,"/","divide")
+                    break
                 }
                 case (numArray.indexOf("+") != -1) : {
-                    let operationsOutcome = handleOperations(numArray,"+","add")
-                    console.log(operationsOutcome)
-                    if(!operationsOutcome.answer){
-                        numArray = operationsOutcome.operationsArray;
-                        console.log(numArray)
-                        break
-                    }
-                    else{
-                        runner = operationsOutcome.runner;
-                        console.log(operationsOutcome.answer)
-                        return operationsOutcome.answer;
-                    }
+                    operationsOutcome = handleOperations(numArray,"+","add")
+                    break
                 }
                 case (numArray.indexOf("-") != -1) : {
-                    let operationsOutcome = handleOperations(numArray,"-","subtract")
-                    console.log(operationsOutcome)
-                    if(!operationsOutcome.answer){
-                        numArray = operationsOutcome.operationsArray;
-                        console.log(numArray)
-                        break
-                    }
-                    else{
-                        runner = operationsOutcome.runner;
-                        console.log(operationsOutcome.answer)
-                        return operationsOutcome.answer;
-                    }
+                    operationsOutcome = handleOperations(numArray,"-","subtract")
+                    break
                 }
+            }
+            if(operationsOutcome.answer == ""){
+                numArray = operationsOutcome.operationsArray;
+            }
+            else{
+                runner = operationsOutcome.runner;
+                return operationsOutcome.answer;
             }
         }
     }

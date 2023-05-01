@@ -16,12 +16,15 @@ export default function Calculator(props){
             switch(true) {
 
                 // If the last value was an operator, there will be no change. Can't string together operators
-                case (operators.includes(value) && 
-                      operators.includes(prevScreenText.charAt(prevScreenText.length-2)))
-                 : {
-                    return prevScreenText;
+                case((prevScreenText.charAt(prevScreenText.length-1) == " " || prevScreenText.charAt(prevScreenText.length-1) == "") && operators.includes(value))
+                 :{
+                    return prevScreenText
                 }
-
+                // case (operators.includes(value) && 
+                //       operators.includes(prevScreenText.charAt(prevScreenText.length-2)))
+                //  : {
+                //     return value === "(" || ")" ? (prevScreenText + " " + String(value) + " "): prevScreenText;
+                // }
                 // If the value is an operator add two spaces to split to array
                 case (operators.includes(value)) :{
                     return prevScreenText + " " + String(value) + " ";
@@ -53,7 +56,7 @@ export default function Calculator(props){
         }
      };
 
-    function handleOperations(operationsArray,operator,operatorName){
+    function handleOperations(operationsArray,operator,operatorName=""){
 
         // Creates an object to perform operations and pass back
         let operationsTracker = {
@@ -67,29 +70,40 @@ export default function Calculator(props){
             // Takes in array to do operations on
             "operationsArray" : operationsArray
         }
-
-        // Grabs the index of the operator
         let operatorIndex = operationsArray.indexOf(operator);
+        let secondIndex;
 
-        // Obtains values from array
-        let operation = getValues(operationsArray,operator)
+        // if(operator == "("){
+        //     operationsArray.reverse()
+        //     let secondIndex = operationsArray.indexOf(")") == 0 ? -1 : operationsArray.indexOf(")");
+        //     operationsArray.reverse()
+        //     console.log(operationsArray.slice(0,operatorIndex-1))
+        //     console.log(operationsArray.slice(secondIndex+3,operationsArray.length))
+        //     let subArray = operationsArray.slice(operatorIndex+1,secondIndex+1)
+        //     console.log(subArray)
+        //     operationsTracker.answer = handlePEMDAS(subArray)
+        // }
+            // Grabs the index of the operator
 
-        // Calculates the answer to the given problem with values
-        let answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal)
+            // Obtains values from array
+            let operation = getValues(operationsArray,operator)
+
+            // Calculates the answer to the given problem with values
+            operationsTracker.answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal)
 
         // If this is the last operation
         if(operationsArray.length == 3) {
             
             // Turn the runner off
             operationsTracker.runner = false
-
-            // Pass an actual answer to the text screen
-            operationsTracker["answer"] = answer;
         }
+        // else if(operator == "("){
+        //     operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),operationsTracker.answer,...operationsArray.slice(secondIndex+1,operationsArray.length)];
+        // }
         else{
 
             // Otherwise keep adding the answer the array and keep doing operations
-            operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),answer,...operationsArray.slice(operatorIndex+2,operationsArray.length)];
+            operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),operationsTracker.answer,...operationsArray.slice(operatorIndex+2,operationsArray.length)];
         }
 
         return operationsTracker;
@@ -129,7 +143,6 @@ export default function Calculator(props){
                     break
                 }
             }
-
             // Checks to see if a final answer has been assigned
             if(operationsOutcome.answer == ""){
 
@@ -143,9 +156,9 @@ export default function Calculator(props){
 
                 // Return the answer
                 return operationsOutcome.answer;
-            }
         }
     }
+}
 
     function handleCalc(){
 

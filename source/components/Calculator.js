@@ -101,7 +101,13 @@ export default function Calculator(props){
     function handleCalc(){
         setScreenText(prevScreenText => {
             let calcArray = prevScreenText.trim().split(" ");
-            return String(handlePEMDAS(calcArray));
+            let result = operators.map(operator => prevScreenText.includes(operator))
+            if(result.includes(true)){
+            return String(handlePEMDAS(calcArray))
+            }
+            else{
+                return prevScreenText;
+            };
         })
     }
             
@@ -139,7 +145,7 @@ export default function Calculator(props){
     return (
         <>
         <div className="flex flex-col items-center">
-            <div className="mt-20 pt-20 px-8 pb-10 flex flex-col bg-gray-500 justify-center">
+            <div className="mt-20 pt-20 px-8 pb-10 flex flex-col bg-gray-500 rounded-t-lg rounded-b-3xl justify-center">
                 <div className="w-[400px] h-[100px] bg-yellow-100">
                     <Screen text={screenText}/>
                 </div>

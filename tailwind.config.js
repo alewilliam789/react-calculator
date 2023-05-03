@@ -5,8 +5,11 @@ module.exports = {
     "./source/**/*.js"
   ],
   theme: {
-    extend: {},
-  },
+      fontFamily: {
+        'digital' : ["Digital","sans-serif"],
+      },
+      extend:{},
+    },
   plugins: [],
 }
 

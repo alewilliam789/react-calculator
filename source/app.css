@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+      font-family: "Digital";
+      src: url(./fonts/DS-DIGII.TTF);
+}

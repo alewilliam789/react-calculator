@@ -71,12 +71,12 @@ export default function Calculator(props){
                     operationsOutcome = handleOperations(numArray,"^","power")
                     break
                 }
-                case (numArray.indexOf("*") != -1) : {
-                    operationsOutcome = handleOperations(numArray,"*","multiply")
+                case (numArray.indexOf("x") != -1) : {
+                    operationsOutcome = handleOperations(numArray,"x","multiply")
                     break
                 }
-                case (numArray.indexOf("/") != -1) : {
-                    operationsOutcome = handleOperations(numArray,"/","divide")
+                case (numArray.indexOf("÷") != -1) : {
+                    operationsOutcome = handleOperations(numArray,"÷","divide")
                     break
                 }
                 case (numArray.indexOf("+") != -1) : {
@@ -120,7 +120,7 @@ export default function Calculator(props){
 
     const nums = [...Array(10).keys()];
     const erasors = ["BCK","CLR"];
-    const operators = ["+", "-","/","*","^","="];
+    const operators = ["+","-","x","÷","^","="];
     const [screenText, setScreenText] = useState("");
 
     const numberButtons = nums.map(num => {
@@ -139,17 +139,19 @@ export default function Calculator(props){
     return (
         <>
         <div className="flex flex-col items-center">
-            <div className="mt-20">
-                <Screen text={screenText}/>
-            </div>
-            <div className="mt-20 gap-10 flex">
-                <div className="w-70 grid grid-cols-3 gap-5">
-                    {erasorButtons}
-                    {numberButtons}
+            <div className="mt-20 pt-20 px-8 pb-10 flex flex-col bg-gray-500 justify-center">
+                <div className="w-[400px] h-[100px] bg-yellow-100">
+                    <Screen text={screenText}/>
                 </div>
-                <div className="flex flex-col justify-center gap-5">
-                <Button key={"."} value={"."} handleClick={handleClick}/>
-                {operatorButtons}
+                <div className="mt-20 gap-10 flex">
+                    <div className="grid grid-cols-3 gap-5">
+                        {erasorButtons}
+                        {numberButtons}
+                    </div>
+                    <div className="flex flex-col justify-center gap-5">
+                    <Button key={"."} value={"."} handleClick={handleClick}/>
+                    {operatorButtons}
+                    </div>
                 </div>
             </div>
         </div>

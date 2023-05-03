@@ -102,7 +102,7 @@ export default function Calculator(props){
         setScreenText(prevScreenText => {
             let calcArray = prevScreenText.trim().split(" ");
             let result = operators.map(operator => prevScreenText.includes(operator))
-            if(result.includes(true)){
+            if(result.includes(true) && calcArray.length >= 3){
             return String(handlePEMDAS(calcArray))
             }
             else{

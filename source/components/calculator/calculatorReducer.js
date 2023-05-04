@@ -1,24 +1,3 @@
-
-
-function addOutput(value){
-    const operators = ["+","-","x","÷","^","="];
-
-    switch(true) {
-        case (operators.includes(value) && 
-                operators.includes(screenText.charAt(screenText.length-2)))
-            : {
-            return screenText;
-        }
-        case (operators.includes(value)) :{
-            return screenText + " " + String(value) + " ";
-        }
-        default : {
-            return screenText +String(value);
-        }
-    }
-}
-
-
 let operations = {
     "power" : function(a,b) {return Number(a)**Number(b)},
     "multiply" : function(a,b) {return Number(a)*Number(b)},
@@ -43,8 +22,11 @@ function handleOperations(operationsArray,operator,operatorName=""){
         "operationsArray" : operationsArray
     }
     let operatorIndex = operationsArray.indexOf(operator);
+    console.log(operatorIndex)
     let operation = getValues(operationsArray,operator)
+    console.log(operation)
     let answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal)
+    console.log(answer)
     if(operationsArray.length == 3) {
         operationsTracker.runner = false
         operationsTracker["answer"] = answer;
@@ -63,22 +45,27 @@ function handlePEMDAS(numArray){
         switch(true){
             case (numArray.indexOf("^") != -1) : {
                 operationsOutcome = handleOperations(numArray,"^","power")
+                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("x") != -1) : {
                 operationsOutcome = handleOperations(numArray,"x","multiply")
+                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("÷") != -1) : {
                 operationsOutcome = handleOperations(numArray,"÷","divide")
+                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("+") != -1) : {
                 operationsOutcome = handleOperations(numArray,"+","add")
+                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("-") != -1) : {
                 operationsOutcome = handleOperations(numArray,"-","subtract")
+                console.log(operationsOutcome)
                 break
             }
         }
@@ -92,29 +79,6 @@ function handlePEMDAS(numArray){
 }
 }
 
-function handleCalc(){
-    setScreenText(screenText => {
-        let calcArray = screenText.trim().split(" ");
-        let result = operators.map(operator => screenText.includes(operator))
-        if(result.includes(true) && calcArray.length >= 3){
-        return String(handlePEMDAS(calcArray))
-        }
-        else{
-            return screenText;
-        };
-    })
-}
-        
-
-function handleBack(){
-    setScreenText( screenText => {
-        let previousValue = screenText.slice(-1);
-        let length = screenText.length
-        return (previousValue === " " ? screenText.slice(0,length-3) : screenText.slice(0,length-1))
-    })
-}
-
-
 
 export default function calculatorReducer(screenText,action){
 
@@ -127,13 +91,11 @@ export default function calculatorReducer(screenText,action){
             switch(true) {
                 case(operators.includes(value) &&
                      (screenText.slice(-1) === "" || screenText.slice(-1) === " ")) : {
-                     console.log("No sir!")
                      newScreenText = screenText;
                      break
                      }
                 case(operators.includes(value)) :{
-                    console.log("This is a operator")
-                    newScreenText = screenText + "  " + value + "  ";
+                    newScreenText = screenText + " " + value + " ";
                     break
                 }
                 default : {
@@ -151,6 +113,16 @@ export default function calculatorReducer(screenText,action){
         case('clear') : {
             return ""
         }
-
+        case('calc') : {
+            let calcArray = screenText.trim().split(" ");
+            let result = operators.map(operator => screenText.includes(operator))
+            if(result.includes(true) && calcArray.length >= 3){
+                newScreenText = String(handlePEMDAS(calcArray))
+            }
+            else{
+                newScreenText = screenText;
+            };
+            return newScreenText
+        }
 }
 }

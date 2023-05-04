@@ -29,7 +29,7 @@ function handleOperations(operationsArray,operator,operatorName=""){
     console.log(answer)
     if(operationsArray.length == 3) {
         operationsTracker.runner = false
-        operationsTracker["answer"] = answer;
+        operationsTracker["answer"] = String(answer);
     }
     else{
         operationsTracker["operationsArray"] = [...operationsArray.slice(0,operatorIndex-1),answer,...operationsArray.slice(operatorIndex+2,operationsArray.length)];
@@ -117,7 +117,7 @@ export default function calculatorReducer(screenText,action){
             let calcArray = screenText.trim().split(" ");
             let result = operators.map(operator => screenText.includes(operator))
             if(result.includes(true) && calcArray.length >= 3){
-                newScreenText = String(handlePEMDAS(calcArray))
+                newScreenText = handlePEMDAS(calcArray)
             }
             else{
                 newScreenText = screenText;

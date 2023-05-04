@@ -22,11 +22,8 @@ function handleOperations(operationsArray,operator,operatorName=""){
         "operationsArray" : operationsArray
     }
     let operatorIndex = operationsArray.indexOf(operator);
-    console.log(operatorIndex)
-    let operation = getValues(operationsArray,operator)
-    console.log(operation)
-    let answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal)
-    console.log(answer)
+    let operation = getValues(operationsArray,operator);
+    let answer = operations[`${operatorName}`](operation.firstVal,operation.secondVal);
     if(operationsArray.length == 3) {
         operationsTracker.runner = false
         operationsTracker["answer"] = String(answer);
@@ -45,27 +42,22 @@ function handlePEMDAS(numArray){
         switch(true){
             case (numArray.indexOf("^") != -1) : {
                 operationsOutcome = handleOperations(numArray,"^","power")
-                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("x") != -1) : {
                 operationsOutcome = handleOperations(numArray,"x","multiply")
-                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("÷") != -1) : {
                 operationsOutcome = handleOperations(numArray,"÷","divide")
-                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("+") != -1) : {
                 operationsOutcome = handleOperations(numArray,"+","add")
-                console.log(operationsOutcome)
                 break
             }
             case (numArray.indexOf("-") != -1) : {
                 operationsOutcome = handleOperations(numArray,"-","subtract")
-                console.log(operationsOutcome)
                 break
             }
         }

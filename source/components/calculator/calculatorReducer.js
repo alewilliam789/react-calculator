@@ -124,23 +124,17 @@ export default function calculatorReducer(screenText,action){
     switch(action.type){
         case('output'):{
             let value = action.character
-            console.log(!screenText)
             switch(true) {
-                case (operators.includes(value) && 
-                      operators.includes(screenText.charAt(screenText.length-2)))
-                    : {
-                    newScreenText = screenText;
-                }
                 case(operators.includes(value) &&
-                     screenText === "") : {
-                        newScreenText = screenText;
+                     (screenText.slice(-1) === "" || screenText.slice(-1) === " ")) : {
+                     console.log("No sir!")
+                     newScreenText = screenText;
+                     break
                      }
-                case (operators.includes(value)) :{
-                    console.log(operators.includes(value))
-                    newScreenText = " " + String(value) + " ";
-                    console.log(newScreenText)
-                    return newScreenText
-
+                case(operators.includes(value)) :{
+                    console.log("This is a operator")
+                    newScreenText = screenText + "  " + value + "  ";
+                    break
                 }
                 default : {
                     newScreenText = screenText + String(value);

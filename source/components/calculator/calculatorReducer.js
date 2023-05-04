@@ -1,22 +1,21 @@
 
 
-function handleClick(event){
-    let {value} = event.target;
-    setScreenText(prevScreenText => {
-        switch(true) {
-            case (operators.includes(value) && 
-                  operators.includes(prevScreenText.charAt(prevScreenText.length-2)))
-             : {
-                return prevScreenText;
-            }
-            case (operators.includes(value)) :{
-                return prevScreenText + " " + String(value) + " ";
-            }
-            default : {
-                return prevScreenText +String(value);
-            }
+function addOutput(value){
+    const operators = ["+","-","x","÷","^","="];
+
+    switch(true) {
+        case (operators.includes(value) && 
+                operators.includes(screenText.charAt(screenText.length-2)))
+            : {
+            return screenText;
         }
-    })
+        case (operators.includes(value)) :{
+            return screenText + " " + String(value) + " ";
+        }
+        default : {
+            return screenText +String(value);
+        }
+    }
 }
 
 
@@ -94,24 +93,24 @@ function handlePEMDAS(numArray){
 }
 
 function handleCalc(){
-    setScreenText(prevScreenText => {
-        let calcArray = prevScreenText.trim().split(" ");
-        let result = operators.map(operator => prevScreenText.includes(operator))
+    setScreenText(screenText => {
+        let calcArray = screenText.trim().split(" ");
+        let result = operators.map(operator => screenText.includes(operator))
         if(result.includes(true) && calcArray.length >= 3){
         return String(handlePEMDAS(calcArray))
         }
         else{
-            return prevScreenText;
+            return screenText;
         };
     })
 }
         
 
 function handleBack(){
-    setScreenText( prevScreenText => {
-        let previousValue = prevScreenText.slice(-1);
-        let length = prevScreenText.length
-        return (previousValue === " " ? prevScreenText.slice(0,length-3) : prevScreenText.slice(0,length-1))
+    setScreenText( screenText => {
+        let previousValue = screenText.slice(-1);
+        let length = screenText.length
+        return (previousValue === " " ? screenText.slice(0,length-3) : screenText.slice(0,length-1))
     })
 }
 
@@ -123,4 +122,27 @@ function handleClear(){
 
 export default function calculatorReducer(screenText,action){
 
+    const operators = ["+","-","x","÷","^","="];
+    let newScreenText;
+
+    switch(action.type){
+        case('output'):{
+            let value = action.character
+            switch(true) {
+                case (operators.includes(value) && 
+                        operators.includes(screenText.charAt(screenText.length-2)))
+                    : {
+                    newScreenText = screenText;
+                }
+                case (operators.includes(value)) :{
+                    newScreenText = screenText + " " + String(value) + " ";
+                }
+                default : {
+                    newScreenText = screenText + String(value);
+                }
+            }
+            return newScreenText;
+
+        }
+    }
 }

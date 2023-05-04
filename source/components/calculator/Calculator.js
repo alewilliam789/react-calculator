@@ -6,7 +6,8 @@ import calculatorReducer from "./calculatorReducer";
 
 export default function Calculator(props){
 
-    const [screenText, dispatch] = useReducer(calculatorReducer, "");
+    let initialScreenText = ""
+    const [screenText, dispatch] = useReducer(calculatorReducer, initialScreenText);
 
     function handleClick(event){
             let {value} = event.target;

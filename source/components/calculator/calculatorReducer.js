@@ -114,10 +114,6 @@ function handleBack(){
     })
 }
 
-function handleClear(){
-    setScreenText("")
-}
-
 
 
 export default function calculatorReducer(screenText,action){
@@ -128,21 +124,39 @@ export default function calculatorReducer(screenText,action){
     switch(action.type){
         case('output'):{
             let value = action.character
+            console.log(!screenText)
             switch(true) {
                 case (operators.includes(value) && 
-                        operators.includes(screenText.charAt(screenText.length-2)))
+                      operators.includes(screenText.charAt(screenText.length-2)))
                     : {
                     newScreenText = screenText;
                 }
+                case(operators.includes(value) &&
+                     screenText === "") : {
+                        newScreenText = screenText;
+                     }
                 case (operators.includes(value)) :{
-                    newScreenText = screenText + " " + String(value) + " ";
+                    console.log(operators.includes(value))
+                    newScreenText = " " + String(value) + " ";
+                    console.log(newScreenText)
+                    return newScreenText
+
                 }
                 default : {
                     newScreenText = screenText + String(value);
                 }
             }
             return newScreenText;
-
         }
-    }
+        case('backspace') : {
+            let previousValue = screenText.slice(-1);
+            let length = screenText.length
+            newScreenText = previousValue === " " ? screenText.slice(0,length-3) : screenText.slice(0,length-1);
+            return newScreenText;
+        }
+        case('clear') : {
+            return ""
+        }
+
+}
 }
